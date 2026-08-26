@@ -1,6 +1,6 @@
 const mongoose = require ('mongoose');
 
-const projectSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
    title: {type: String, required: true},
    description: {type: String},
    image: {type: String, required: true},
@@ -10,6 +10,6 @@ const projectSchema = new mongoose.Schema({
    comments: [{type: mongoose.Schema.Types.ObjectId, ref: "Comment"}]
 },{timestamps: true});
 
-const project = mongoose.model('Project', projectSchema);
+const product = mongoose.model('product', productSchema);
 
-module.exports = project;
+module.exports = product;
