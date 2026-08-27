@@ -1,18 +1,21 @@
-const User = mongoose.model('User', userSchema);
+const User = require("../models/user.models");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 exports.registerUser = async (req, res) => {
     const { name, email, password } = req.body;
+        console.log("BODY :", req.body);
+        console.log("EMAIL :", email);
 
     try {
         
         const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: 'Utilisateur déja existant' });
-        }
+        
         if (!name || !email || !password) {
             return res.status(400).json({ message: 'Tous les champs sont requis' });
+        }
+        if (existingUser) {
+            return res.status(400).json({ message: 'Utilisateur déja existant' });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -29,7 +32,9 @@ exports.registerUser = async (req, res) => {
 
         res.status(201).json({ token });
     } catch (error) {
-        res.status(500).json({ message: 'Erreur du serveur' });
+        res.status(500).json({ 
+            message: 'Erreur du serveur' });
+            console.log(error);
     }
 };
 
