@@ -2,12 +2,9 @@ const mongoose = require ('mongoose');
 
 const productSchema = new mongoose.Schema({
    title: {type: String, required: true},
-   description: {type: String},
+   description: {type: String, required: true},
    image: {type: String, required: true},
-   skills: {type: [String], required: true},
-   author: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true},
-   likes: [{type : mongoose.Schema.Types.ObjectId, ref: "User"}],
-   comments: [{type: mongoose.Schema.Types.ObjectId, ref: "Comment"}]
+   price: {type: Number, required: true},
 },{timestamps: true});
 
 const product = mongoose.model('product', productSchema);
