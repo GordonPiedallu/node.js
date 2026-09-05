@@ -1,0 +1,21 @@
+openapi : 3.0.0
+
+info : 
+title : API pour une borne de restauration rapide
+version : 1.0.0
+description : API permettant une gestion de commande, de menu, de commande et d'utilisateurs
+
+server: 
+url : http://127.0.0.1:8000/api
+decription : Serveur local
+
+paths:
+  /products:
+    get:
+      summary: Récupérer tous les produits
+      responses:
+      '200':
+        description : Liste des produits récupérée avec succès
+      '500':
+        description : Erreur serveur lors de la tentative de récupération des données 
+
