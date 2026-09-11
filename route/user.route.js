@@ -6,23 +6,25 @@ const { registerUser, loginUser } = require("../controllers/auth.controller");
 
 const User = require("../models/user.models");
 
-const { authenticate,isAdmin } = require("../middlewares/auth.middlewares");
+const { authenticate } = require("../middlewares/auth.middlewares");
+
+const authorizeRoles = require("../middlewares/role.middlewares");
 
 router.post("/register", registerUser);
 
 router.post("/login", loginUser);
 
-router.get("/",authenticate,isAdmin,async (req, res) => {
+router.get("/", authenticate, authorizeRoles("admin"), async (req, res) => {
     try {
-      const users = await User.find().select("-password");
+        const users = await User.find().select("-password");
 
-      res.status(200).json(users);
+        res.status(200).json(users);
+
     } catch (error) {
-      res.status(500).json({
-        message: "Erreur serveur",
-      });
+        res.status(500).json({
+            message: "Erreur serveur"
+        });
     }
-  }
-);
+});
 
 module.exports = router;
