@@ -3,7 +3,7 @@ const Order = require("../models/order.model");
 exports.createOrder = async (req, res) => {
     try {
         const { productId, quantity, totalPrice } = req.body;
-        const userId = req.user.id;
+        const userId = req.user.userId;
 
         const newOrder = await Order.create({
             product: productId,
